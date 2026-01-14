@@ -1,3 +1,17 @@
+# Product Service Kubernetes Deployment
+# 
+# Prerequisites:
+# 1. Create database secret:
+#    kubectl create secret generic product-service-db-secret \
+#      --from-literal=connection-string="Server=your-sql-server;Database=ProductServiceDB;User Id=sa;Password=YourPassword;TrustServerCertificate=True"
+#
+# 2. Deploy Redis (if not already deployed):
+#    kubectl apply -f https://k8s.io/examples/application/guestbook/redis-master-deployment.yaml
+#
+# 3. Deploy Product Service:
+#    kubectl apply -f k8s-deployment.yaml
+#
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,9 +38,12 @@ spec:
         - name: ASPNETCORE_ENVIRONMENT
           value: "Development"
         - name: ConnectionStrings__DefaultConnection
-          value: "Server=(localdb)\\MSSQLLocalDB;Database=ProductServiceDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+          valueFrom:
+            secretKeyRef:
+              name: product-service-db-secret
+              key: connection-string
         - name: ConnectionStrings__Redis
-          value: "localhost:6379"
+          value: "redis-service:6379"
         livenessProbe:
           httpGet:
             path: /health

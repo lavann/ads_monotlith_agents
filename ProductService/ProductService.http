@@ -1,6 +1,25 @@
 @ProductService_HostAddress = http://localhost:5210
 
-GET {{ProductService_HostAddress}}/weatherforecast/
+# Get all products
+GET {{ProductService_HostAddress}}/api/products
+Accept: application/json
+
+###
+
+# Get product by ID
+GET {{ProductService_HostAddress}}/api/products/1
+Accept: application/json
+
+###
+
+# Get product by SKU
+GET {{ProductService_HostAddress}}/api/products/sku/SKU-0001
+Accept: application/json
+
+###
+
+# Health check
+GET {{ProductService_HostAddress}}/health
 Accept: application/json
 
 ###
