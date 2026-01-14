@@ -89,3 +89,4 @@ You can override the default connection string by setting the `ConnectionStrings
 | -------------------------------------- | -------------------------- | ---------------- |
 | `ConnectionStrings__DefaultConnection` | Database connection string | LocalDB instance |
 | `ASPNETCORE_ENVIRONMENT`               | Environment mode           | `Development`    |
+"# ads_monotlith_agents" 
