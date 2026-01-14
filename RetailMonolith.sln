@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetailMonolith.Tests", "Ret
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService", "ProductService\ProductService.csproj", "{53548628-5F49-4468-80FE-28D8FBDF2E3B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Tests", "ProductService.Tests\ProductService.Tests.csproj", "{C12DB06B-B061-4334-929B-CE280CCE1E53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{53548628-5F49-4468-80FE-28D8FBDF2E3B}.Release|x64.Build.0 = Release|Any CPU
 		{53548628-5F49-4468-80FE-28D8FBDF2E3B}.Release|x86.ActiveCfg = Release|Any CPU
 		{53548628-5F49-4468-80FE-28D8FBDF2E3B}.Release|x86.Build.0 = Release|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Debug|x64.Build.0 = Debug|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Debug|x86.Build.0 = Debug|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Release|x64.ActiveCfg = Release|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Release|x64.Build.0 = Release|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Release|x86.ActiveCfg = Release|Any CPU
+		{C12DB06B-B061-4334-929B-CE280CCE1E53}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
