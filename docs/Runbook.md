@@ -505,12 +505,131 @@ Currently no Dockerfile exists. To containerize:
 - `/docs/LLD.md` - Low-Level Design
 - `/docs/ADR/` - Architecture Decision Records
 - `/README.md` - Project overview
+- `/docs/Migration-Plan.md` - Microservices migration strategy
+- `/docs/Target-Architecture.md` - Target microservices architecture
+- `/ProductService/README.md` - Product Service documentation
 
 ---
 
-## 12. Quick Reference
+## 12. Microservices
 
-### 12.1 Essential Commands
+### 12.1 Product Service
+
+**Status**: Phase 1 - In Development
+
+The Product Service is the first microservice extracted from the monolith as part of our migration to microservices architecture.
+
+#### 12.1.1 Running Product Service Locally
+
+```bash
+cd ProductService
+dotnet run
+```
+
+The service will be available at `http://localhost:5000` (or the port specified in launchSettings.json)
+
+#### 12.1.2 Product Service Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/products` | GET | List all active products |
+| `/api/products/{id}` | GET | Get product by ID |
+| `/api/products/sku/{sku}` | GET | Get product by SKU |
+| `/health` | GET | Health check |
+
+#### 12.1.3 Product Service Configuration
+
+**Database**: Separate database (`ProductServiceDB`) from the monolith
+
+**Connection String** (appsettings.json):
+```json
+"ConnectionStrings": {
+  "DefaultConnection": "Server=(localdb)\\MSSQLLocalDB;Database=ProductServiceDB;Trusted_Connection=True;MultipleActiveResultSets=true"
+}
+```
+
+**Redis** (optional for caching):
+```json
+"ConnectionStrings": {
+  "Redis": "localhost:6379"
+}
+```
+
+#### 12.1.4 Running Product Service Tests
+
+```bash
+cd ProductService.Tests
+dotnet test
+```
+
+#### 12.1.5 Product Service Docker
+
+**Build Image**:
+```bash
+cd ProductService
+docker build -t product-service:latest .
+```
+
+**Run Container**:
+```bash
+docker run -p 8080:8080 product-service:latest
+```
+
+#### 12.1.6 Product Service Kubernetes
+
+**Deploy**:
+```bash
+cd ProductService
+kubectl apply -f k8s-deployment.yaml
+```
+
+**Check Status**:
+```bash
+kubectl get pods -l app=product-service
+kubectl get services product-service
+```
+
+**Access Service**:
+```bash
+# Get external IP (if LoadBalancer type)
+kubectl get service product-service
+# Or use port-forward for local access
+kubectl port-forward service/product-service 8080:80
+```
+
+#### 12.1.7 Monitoring Product Service
+
+**Health Check**:
+```bash
+curl http://localhost:8080/health
+```
+
+**View Logs**:
+```bash
+# Local
+dotnet run --verbosity detailed
+
+# Docker
+docker logs <container-id>
+
+# Kubernetes
+kubectl logs -l app=product-service -f
+```
+
+**Key Metrics to Monitor**:
+- Request rate (requests/minute)
+- Error rate (% of 5xx responses)
+- Response time (p50, p95, p99)
+- Cache hit ratio (%)
+- Database connection pool utilization
+
+---
+
+## 13. Quick Reference
+
+### 13.1 Essential Commands
+
+**Monolith**:
 | Task | Command |
 |------|---------|
 | Run application | `dotnet run` |
@@ -521,7 +640,16 @@ Currently no Dockerfile exists. To containerize:
 | View migrations | `dotnet ef migrations list` |
 | Trust dev certificate | `dotnet dev-certs https --trust` |
 
-### 12.2 Default Credentials
+**Product Service**:
+| Task | Command |
+|------|---------|
+| Run service | `cd ProductService && dotnet run` |
+| Run tests | `cd ProductService.Tests && dotnet test` |
+| Create migration | `cd ProductService && dotnet ef migrations add MigrationName` |
+| Build Docker image | `cd ProductService && docker build -t product-service:latest .` |
+| Deploy to K8s | `cd ProductService && kubectl apply -f k8s-deployment.yaml` |
+
+### 13.2 Default Credentials
 - **Customer ID**: `"guest"` (hardcoded, no login required)
 - **Database**: Windows Authentication (LocalDB)
 - **Payment Token**: Any value (mock gateway always succeeds)

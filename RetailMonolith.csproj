@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="RetailMonolith.Tests/**" />
+    <Compile Remove="ProductService/**" />
+    <Compile Remove="ProductService.Tests/**" />
   </ItemGroup>
 
   <ItemGroup>
